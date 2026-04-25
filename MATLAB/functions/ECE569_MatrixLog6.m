@@ -19,12 +19,14 @@ function expmat = ECE569_MatrixLog6(T)
 [R, p] = ECE569_TransToRp(T);
 omgmat = ECE569_MatrixLog3(R);
 if isequal(omgmat, zeros(3))
-    % expmat = ...
+    expmat = [zeros(3,3), p; 0 0 0 0];
 else
-    % theta = acos((trace(R) - 1) / 2);
+    theta = acos((trace(R) - 1) / 2);
     % Note: equation (3.92) of MR is a bit confusing because of how they chose to normalize by theta.
     % You need to multiply (eqn. 3.92) by theta on both sides to properly implement the MatrixLog6 function. 
     % In summary, you should have v = (eqn. 3.92) * theta * p
-    % expmat = ...
+    W = omgmat/theta;
+    g_inv = 1/theta*eye(3) - (1/2 * W) + ((1/theta) - 1/2*cot(theta/2))*(W)^2;
+    expmat = [omgmat g_inv*theta*p; 0 0 0 0];
 end
 end
