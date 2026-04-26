@@ -30,7 +30,6 @@ else
     R = ECE569_MatrixExp3(omgmat * theta);
     G = eye(3)*theta + (1 - cos(theta))*omgmat + (theta - sin(theta))*(omgmat^2);
     
-    T = [R,      G * v; ...
-         0, 0, 0, 1];
+    T = [R, G * v; 0, 0, 0, 1];
 end
 end
